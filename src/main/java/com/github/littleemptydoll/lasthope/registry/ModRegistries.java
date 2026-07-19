@@ -1,5 +1,6 @@
 package com.github.littleemptydoll.lasthope.registry;
 
+import com.github.littleemptydoll.lasthope.datagen.DataGenerators;
 import net.neoforged.bus.api.IEventBus;
 
 public class ModRegistries {
@@ -10,5 +11,7 @@ public class ModRegistries {
         ModItems.register(eventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         //ModCreativeTabs.register(eventBus);
+        // Регистрируем генераторы ресурсов мода
+        DataGenerators.register(eventBus);
     }
 }

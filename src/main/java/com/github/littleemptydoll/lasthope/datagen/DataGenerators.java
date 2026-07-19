@@ -1,5 +1,7 @@
 package com.github.littleemptydoll.lasthope.datagen;
 
+import com.github.littleemptydoll.lasthope.datagen.provider.ModBlockStateProvider;
+import com.github.littleemptydoll.lasthope.datagen.provider.ModItemModelProvider;
 import com.github.littleemptydoll.lasthope.datagen.provider.ModLanguageProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -18,6 +20,8 @@ public class DataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         generator.addProvider( event.includeClient(), new ModLanguageProvider(output));
+        generator.addProvider( event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
+        generator.addProvider( event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
     }
 
     private DataGenerators() {

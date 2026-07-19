@@ -5,6 +5,11 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public class ModBlockProperties {
     private ModBlockProperties() {}
 
+    public static BlockBehaviour.Properties defaultProperties() {
+        return BlockBehaviour.Properties.of()
+                .strength(1.0F);
+    }
+
     public static BlockBehaviour.Properties cardboard() {
         return BlockBehaviour.Properties.of()
                 .strength(0.3F);

@@ -1,47 +1,39 @@
 package com.github.littleemptydoll.lasthope.registry;
 
-import com.github.littleemptydoll.lasthope.LastHope;
-import com.github.littleemptydoll.lasthope.block.ModBlockProperties;
 import com.github.littleemptydoll.lasthope.block.decoration.CardboardBoxBlock;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
+import com.github.littleemptydoll.lasthope.block.decoration.TestBlock;
+import com.github.littleemptydoll.lasthope.client.model.ModelType;
+import com.github.littleemptydoll.lasthope.registry.definition.BlockDefinition;
+import com.github.littleemptydoll.lasthope.registry.definition.AssetFolder;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Supplier;
+import java.util.List;
 
 public class ModBlocks {
     // Реестр всех блоков нашего мода.
     // Всё, что будет зарегистрированно здесь, автоматически получит id
     // вида "lasthope:<имя_блока>"
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(LastHope.MODID);
-
-    private ModBlocks() {
-    }
-
-    // Вспомогательный метод для регистрации блока
-    public static <T extends Block> DeferredBlock<T> registerBlock(
-            String name,
-            Supplier<T> supplier )
-    {
-        DeferredBlock<T> block = BLOCKS.register(name, supplier);
-        ModItems.registerBlockItem(name, block);
-
-        return block;
-    }
+    private ModBlocks() {}
 
     public static void register(IEventBus bus){
-        BLOCKS.register(bus);
+        BlockRegistry.register(bus);
     }
 
-    public static final DeferredBlock<CardboardBoxBlock> CARDBOARD_BOX =
-            registerBlock(
-                    "cardboard_box",
-                    () -> new CardboardBoxBlock(
-                            ModBlockProperties.cardboard()
-                    ));
+    public static List<BlockDefinition> getBlockDefinitions() {
+        return BlockRegistry.getBlockDefinitions();
+    }
+
+    public static final BlockDefinition TEST_BLOCK = BlockRegistry.register(
+            "test_block",
+            TestBlock::new,
+            ModelType.SIMPLE,
+            AssetFolder.DECORATION
+    );
+
+    public static final BlockDefinition CARDBOARD_BOX = BlockRegistry.register(
+            "cardboard_box",
+            CardboardBoxBlock::new,
+            ModelType.SIMPLE,
+            AssetFolder.DECORATION
+    );
 }
